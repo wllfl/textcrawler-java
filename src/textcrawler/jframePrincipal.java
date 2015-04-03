@@ -22,7 +22,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         lblTotalPastas.setVisible(false);
     }
     
-    private void contaPastas(String local){
+    private void contaPastas(String local, Boolean subDiretorio){
         try{
             File file = new File(local);  
             File afile[] = file.listFiles();  
@@ -30,8 +30,11 @@ public class jframePrincipal extends javax.swing.JFrame {
             for (int j = afile.length; i < j; i++) {   
                 if(afile[i].isDirectory()){
                     this.FTotalPastas++;
-                    this.contaPastas(afile[i].getCanonicalPath());
-                    this.contaArquivos(afile[i].getCanonicalPath());
+
+                    if(subDiretorio){
+                        this.contaPastas(afile[i].getCanonicalPath(), subDiretorio); 
+                        this.contaArquivos(afile[i].getCanonicalPath());
+                    }
                 }
             }
         } catch (Exception ex) {
@@ -329,7 +332,7 @@ public class jframePrincipal extends javax.swing.JFrame {
             this.FTotalArquivos = 0;
             this.FTotalPastas = 0;
             this.contaArquivos(edtLocalPasta.getText());
-            this.contaPastas(edtLocalPasta.getText());
+            this.contaPastas(edtLocalPasta.getText(), ckbSubFolders.isSelected());
             
             lblTotalPastas.setText("Total de Pastas -> " + String.valueOf(this.FTotalPastas));
             lblTotalArquivos.setText("Total de Arquivos -> " + String.valueOf(this.FTotalArquivos));
