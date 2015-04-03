@@ -74,12 +74,18 @@ public class jframePrincipal extends javax.swing.JFrame {
 
         edtExtRejeitada.setText("*.*");
 
+        edtLocalPasta.setEditable(false);
+
         jLabel3.setText("Local da Pasta");
 
         ckbSubFolders.setSelected(true);
         ckbSubFolders.setText("Sub Pastas");
+        ckbSubFolders.setToolTipText("Pesquisar dentro de sub pastas");
+        ckbSubFolders.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnFindFolder.setText("...");
+        btnFindFolder.setToolTipText("Selecione a pasta");
+        btnFindFolder.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFindFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFindFolderActionPerformed(evt);
@@ -139,6 +145,8 @@ public class jframePrincipal extends javax.swing.JFrame {
         jLabel5.setText("Substituir por");
 
         ckbCaseSensitive.setText("Case Sensitive ");
+        ckbCaseSensitive.setToolTipText("Pesquisa deferenciando letras Maiúsculas de Minúsculas");
+        ckbCaseSensitive.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -175,16 +183,17 @@ public class jframePrincipal extends javax.swing.JFrame {
         jTabbedPane2.addTab("Padrão", jPanel1);
 
         jButton1.setText("Procurar");
+        jButton1.setToolTipText("Procurar expressão");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jButton2.setText("Substituir");
+        jButton2.setToolTipText("Substituir expressão por valor informado");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jScrollPane1.setViewportView(jList1);
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
