@@ -1,8 +1,7 @@
 
-package textcrawler;
+package com.wll.textcrawler;
 
-import java.io.File;
-import java.io.IOException;
+import com.wll.classes.Crawler;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -12,126 +11,18 @@ import javax.swing.JOptionPane;
  */
 public class jframePrincipal extends javax.swing.JFrame {
 
-    private int FTotalArquivos = 0;
-    private int FTotalPastas = 0;
+    private Crawler crawler;  
+    
+    /***************************************************************************************************************/
 
     public jframePrincipal() {
         initComponents();
-        setExtendedState(MAXIMIZED_BOTH);
         lblTotalArquivos.setVisible(false);
         lblTotalPastas.setVisible(false);
     }
     
-    private void contaPastas(String local, Boolean subDiretorio, String filtroAceito, String filtroRejeitado){
-        try{
-            File file = new File(local);  
-            File afile[] = file.listFiles();  
-            int i = 0;
-            for (int j = afile.length; i < j; i++) {   
-                if(afile[i].isDirectory()){
-                    this.FTotalPastas++;
-
-                    if(subDiretorio){
-                        this.contaPastas(afile[i].getCanonicalPath(), subDiretorio, filtroAceito, filtroRejeitado); 
-                        this.contaArquivos(afile[i].getCanonicalPath(), filtroAceito, filtroRejeitado);
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao contar pastas: " + ex.getMessage());
-        }
-    }
+     /***************************************************************************************************************/
     
-    private void contaArquivos(String local, String filtroAceito, String filtroRejeitado){
-        try{
-            File file = new File(local);  
-            File afile[] = file.listFiles();  
-            int i = 0;
-            for (int j = afile.length; i < j; i++) {          
-                if(afile[i].isFile()){
-                    if(this.isArquivoAceito(filtroAceito, afile[i]) && 
-                       !this.isArquivoRejeitado(filtroRejeitado, afile[i]) && 
-                       !this.isArquivoRejeitadoFiltro(filtroAceito, filtroRejeitado, afile[i])){
-                        this.FTotalArquivos++;
-                    }
-                }
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao contar arquivos: " + ex.getMessage());
-        }
-    }
-    
-    private Boolean isArquivoAceito(String filtroAceito, File file){
-        try{
-            Boolean retorno = false;
-            if(filtroAceito.equals("*.*")){
-                retorno = true;
-            }else if (!filtroAceito.equals("*.*")){
-                
-                String[] arrayFilter = filtroAceito.split("\\.");
-                String[] arrayFile = file.getName().split("\\.");
-
-                //Compara pelo nome do arquivo
-                if(!arrayFilter[0].equals("*") && arrayFilter[1].equals("*")){
-                    retorno = arrayFile[0].equals(arrayFilter[0]);
-
-                      //Compara pela extensão do arquivo
-                }else if(arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
-                    retorno = arrayFile[1].equals(arrayFilter[1]);
-
-                      // Compara por nome e extensão do arquivo
-                }else if(!arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
-                    retorno = (arrayFile[0].equals(arrayFilter[0]) && arrayFile[1].equals(arrayFilter[1]));
-                }
-            }
-            
-            return retorno;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro filtro de aceitação: " + ex.toString());
-            return false;
-        }
-    }
-    
-    private Boolean isArquivoRejeitado(String filtroRejeitado, File file){
-        try{
-            Boolean retorno = false;
-                
-             if(filtroRejeitado.equals("*.*")){
-                retorno = false;
-            }else if (!filtroRejeitado.equals("*.*")){
-                String[] arrayFilter = filtroRejeitado.split("\\.");
-                String[] arrayFile = file.getName().split("\\.");
-
-                //Compara pelo nome do arquivo
-                if(!arrayFilter[0].equals("*") && arrayFilter[1].equals("*")){
-                    retorno = arrayFile[0].equals(arrayFilter[0]);
-
-                      //Compara pela extensão do arquivo
-                }else if(arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
-                    retorno = arrayFile[1].equals(arrayFilter[1]);
-
-                      // Compara por nome e extensão do arquivo
-                }else if(!arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
-                    retorno = (arrayFile[0].equals(arrayFilter[0]) && arrayFile[1].equals(arrayFilter[1]));
-                }
-            }
-            
-            return retorno;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro filtro de rejeição: " + ex.getMessage());
-            return false;
-        }
-    }
-    
-    private Boolean isArquivoRejeitadoFiltro(String filtroAceito, String filtroRejeitado, File file){
-        try{
-            return (this.isArquivoAceito(filtroAceito, file) && this.isArquivoRejeitado(filtroRejeitado, file));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro filtro rejeição específica: " + ex.getMessage());
-            return false;
-        }
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -156,7 +47,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        jlistFile = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jProgressBar2 = new javax.swing.JProgressBar();
@@ -302,9 +193,9 @@ public class jframePrincipal extends javax.swing.JFrame {
         jButton2.setToolTipText("Substituir expressão por valor informado");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
-        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jScrollPane1.setViewportView(jList1);
-        jList1.getAccessibleContext().setAccessibleParent(this);
+        jlistFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jScrollPane1.setViewportView(jlistFile);
+        jlistFile.getAccessibleContext().setAccessibleParent(this);
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -390,6 +281,8 @@ public class jframePrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    /***************************************************************************************************************/
+    
     private void btnFindFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindFolderActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -399,6 +292,8 @@ public class jframePrincipal extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_btnFindFolderActionPerformed
 
+    /***************************************************************************************************************/
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(!"".equals(edtLocalPasta.getText())){              
             lblTotalPastas.setVisible(true);
@@ -406,13 +301,12 @@ public class jframePrincipal extends javax.swing.JFrame {
             
             String extAceita = (edtExtAceita.getText().equals("")) ? "*.*" : edtExtAceita.getText();
             String extRejeitada = (edtExtRejeitada.getText().equals("")) ? "*.*" : edtExtRejeitada.getText() ;
-            this.FTotalArquivos = 0;
-            this.FTotalPastas = 0;
-            this.contaArquivos(edtLocalPasta.getText(), extAceita, extRejeitada);
-            this.contaPastas(edtLocalPasta.getText(), ckbSubFolders.isSelected(), extAceita, extRejeitada);
-            
-            lblTotalPastas.setText("Total de Pastas -> " + String.valueOf(this.FTotalPastas));
-            lblTotalArquivos.setText("Total de Arquivos -> " + String.valueOf(this.FTotalArquivos));
+            crawler = new Crawler(edtLocalPasta.getText(), ckbSubFolders.isSelected(), extAceita, extRejeitada);
+            crawler.contaArquivos(edtLocalPasta.getText());
+            crawler.contaPastas(edtLocalPasta.getText());
+
+            lblTotalPastas.setText("Total de Pastas -> " + String.valueOf(this.crawler.getFTotalPastas()));
+            lblTotalArquivos.setText("Total de Arquivos -> " + String.valueOf(this.crawler.getFTotalArquivos()));
         }else{
             lblTotalPastas.setVisible(false);
             lblTotalArquivos.setVisible(false);
@@ -420,9 +314,8 @@ public class jframePrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    /***************************************************************************************************************/
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -471,7 +364,6 @@ public class jframePrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -483,6 +375,7 @@ public class jframePrincipal extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JList jlistFile;
     private javax.swing.JPanel jpanelFolder;
     private javax.swing.JLabel lblTotalArquivos;
     private javax.swing.JLabel lblTotalPastas;
