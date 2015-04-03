@@ -22,7 +22,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         lblTotalPastas.setVisible(false);
     }
     
-    private void contaPastas(String local, Boolean subDiretorio){
+    private void contaPastas(String local, Boolean subDiretorio, String filtroAceito, String filtroRejeitado){
         try{
             File file = new File(local);  
             File afile[] = file.listFiles();  
@@ -32,8 +32,8 @@ public class jframePrincipal extends javax.swing.JFrame {
                     this.FTotalPastas++;
 
                     if(subDiretorio){
-                        this.contaPastas(afile[i].getCanonicalPath(), subDiretorio); 
-                        this.contaArquivos(afile[i].getCanonicalPath());
+                        this.contaPastas(afile[i].getCanonicalPath(), subDiretorio, filtroAceito, filtroRejeitado); 
+                        this.contaArquivos(afile[i].getCanonicalPath(), filtroAceito, filtroRejeitado);
                     }
                 }
             }
@@ -42,18 +42,93 @@ public class jframePrincipal extends javax.swing.JFrame {
         }
     }
     
-    private void contaArquivos(String local){
+    private void contaArquivos(String local, String filtroAceito, String filtroRejeitado){
         try{
             File file = new File(local);  
             File afile[] = file.listFiles();  
             int i = 0;
-            for (int j = afile.length; i < j; i++) {   
+            for (int j = afile.length; i < j; i++) {          
                 if(afile[i].isFile()){
-                    this.FTotalArquivos++;
+                    if(this.isArquivoAceito(filtroAceito, afile[i]) && 
+                       !this.isArquivoRejeitado(filtroRejeitado, afile[i]) && 
+                       !this.isArquivoRejeitadoFiltro(filtroAceito, filtroRejeitado, afile[i])){
+                        this.FTotalArquivos++;
+                    }
                 }
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao contar arquivos: " + ex.getMessage());
+        }
+    }
+    
+    private Boolean isArquivoAceito(String filtroAceito, File file){
+        try{
+            Boolean retorno = false;
+            if(filtroAceito.equals("*.*")){
+                retorno = true;
+            }else if (!filtroAceito.equals("*.*")){
+                
+                String[] arrayFilter = filtroAceito.split("\\.");
+                String[] arrayFile = file.getName().split("\\.");
+
+                //Compara pelo nome do arquivo
+                if(!arrayFilter[0].equals("*") && arrayFilter[1].equals("*")){
+                    retorno = arrayFile[0].equals(arrayFilter[0]);
+
+                      //Compara pela extensão do arquivo
+                }else if(arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
+                    retorno = arrayFile[1].equals(arrayFilter[1]);
+
+                      // Compara por nome e extensão do arquivo
+                }else if(!arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
+                    retorno = (arrayFile[0].equals(arrayFilter[0]) && arrayFile[1].equals(arrayFilter[1]));
+                }
+            }
+            
+            return retorno;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro filtro de aceitação: " + ex.toString());
+            return false;
+        }
+    }
+    
+    private Boolean isArquivoRejeitado(String filtroRejeitado, File file){
+        try{
+            Boolean retorno = false;
+                
+             if(filtroRejeitado.equals("*.*")){
+                retorno = false;
+            }else if (!filtroRejeitado.equals("*.*")){
+                String[] arrayFilter = filtroRejeitado.split("\\.");
+                String[] arrayFile = file.getName().split("\\.");
+
+                //Compara pelo nome do arquivo
+                if(!arrayFilter[0].equals("*") && arrayFilter[1].equals("*")){
+                    retorno = arrayFile[0].equals(arrayFilter[0]);
+
+                      //Compara pela extensão do arquivo
+                }else if(arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
+                    retorno = arrayFile[1].equals(arrayFilter[1]);
+
+                      // Compara por nome e extensão do arquivo
+                }else if(!arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
+                    retorno = (arrayFile[0].equals(arrayFilter[0]) && arrayFile[1].equals(arrayFilter[1]));
+                }
+            }
+            
+            return retorno;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro filtro de rejeição: " + ex.getMessage());
+            return false;
+        }
+    }
+    
+    private Boolean isArquivoRejeitadoFiltro(String filtroAceito, String filtroRejeitado, File file){
+        try{
+            return (this.isArquivoAceito(filtroAceito, file) && this.isArquivoRejeitado(filtroRejeitado, file));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro filtro rejeição específica: " + ex.getMessage());
+            return false;
         }
     }
 
@@ -329,10 +404,12 @@ public class jframePrincipal extends javax.swing.JFrame {
             lblTotalPastas.setVisible(true);
             lblTotalArquivos.setVisible(true);
             
+            String extAceita = (edtExtAceita.getText().equals("")) ? "*.*" : edtExtAceita.getText();
+            String extRejeitada = (edtExtRejeitada.getText().equals("")) ? "*.*" : edtExtRejeitada.getText() ;
             this.FTotalArquivos = 0;
             this.FTotalPastas = 0;
-            this.contaArquivos(edtLocalPasta.getText());
-            this.contaPastas(edtLocalPasta.getText(), ckbSubFolders.isSelected());
+            this.contaArquivos(edtLocalPasta.getText(), extAceita, extRejeitada);
+            this.contaPastas(edtLocalPasta.getText(), ckbSubFolders.isSelected(), extAceita, extRejeitada);
             
             lblTotalPastas.setText("Total de Pastas -> " + String.valueOf(this.FTotalPastas));
             lblTotalArquivos.setText("Total de Arquivos -> " + String.valueOf(this.FTotalArquivos));
