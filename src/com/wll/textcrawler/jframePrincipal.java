@@ -307,6 +307,7 @@ public class jframePrincipal extends javax.swing.JFrame {
 
             lblTotalPastas.setText("Total de Pastas -> " + String.valueOf(this.crawler.getFTotalPastas()));
             lblTotalArquivos.setText("Total de Arquivos -> " + String.valueOf(this.crawler.getFTotalArquivos()));
+            crawler.procuraExpressao(edtFind.getText());
         }else{
             lblTotalPastas.setVisible(false);
             lblTotalArquivos.setVisible(false);

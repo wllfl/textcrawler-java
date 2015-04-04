@@ -1,9 +1,14 @@
 
 package com.wll.classes;
 
+import java.awt.List;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -17,6 +22,10 @@ public class Crawler {
     private String extRejeitada;
     private int FTotalArquivos = 0;
     private int FTotalPastas = 0;
+    private Arquivo arquivoTemp = null;
+    private Arquivo arquivoFinal = null;
+    private ArrayList<Arquivo> listaTemp = new ArrayList();
+    private ArrayList<Arquivo> listaTFinal = new ArrayList();
     private DefaultListModel listaFile = new DefaultListModel(); 
     
     /***************************************************************************************************************/
@@ -26,6 +35,40 @@ public class Crawler {
         this.subPastas = subPastas;
         this.extAceita = extAceita;
         this.extRejeitada = extRejeitada;
+    }
+    
+    /***************************************************************************************************************/
+    
+    public void procuraExpressao(String expressao){
+        try{
+            for (Arquivo arquivo : listaTemp) {
+                BufferedReader buffer = new BufferedReader(new FileReader(arquivo.getCaminho()));
+                String linha = "";
+                String conteudo = "";
+                int contRepeticao = 0;
+                
+                while ((linha = buffer.readLine()) != null) {  
+                    if (linha.contains(expressao)) {  
+                        contRepeticao++;
+                        conteudo += linha + "\n";
+                    }  
+                }
+                
+                if (contRepeticao > 0){
+                    this.arquivoFinal = new Arquivo(arquivo.getNome(), 
+                                                           arquivo.getCaminho(), 
+                                                           arquivo.getDataAlteracao(),
+                                                           arquivo.getTamanho(),
+                                                           contRepeticao,
+                                                           conteudo);
+                    this.listaTFinal.add(arquivoFinal);
+                }
+            }
+            
+            String teste = "";
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao procurar expressão: " + ex.getMessage());
+        }
     }
     
     /***************************************************************************************************************/
@@ -62,7 +105,10 @@ public class Crawler {
                     if(this.isArquivoAceito(this.extAceita, afile[i]) && 
                        !this.isArquivoRejeitado(this.extRejeitada, afile[i]) && 
                        !this.isArquivoRejeitadoFiltro(this.extAceita, this.extRejeitada, afile[i])){
+                        
                         this.FTotalArquivos++;
+                        arquivoTemp = new Arquivo(afile[i].getName(), afile[i].getCanonicalPath(), afile[i].lastModified(), String.valueOf(afile[i].length()));
+                        listaTemp.add(arquivoTemp);
                     }
                 }
             }
@@ -159,6 +205,10 @@ public class Crawler {
     
     public int getFTotalPastas() {
         return FTotalPastas;
+    }
+
+    public void procuraExpressao(JTextField edtFind) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /***************************************************************************************************************/

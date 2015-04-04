@@ -1,6 +1,10 @@
 
 package com.wll.classes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author william
@@ -8,19 +12,31 @@ package com.wll.classes;
 public class Arquivo {
     
     private String nome;
-    private String dataAlteracao;
+    private long dataAlteracao;
     private String caminho;
     private String tamanho;
     private int qtdeExpEncontrada;
+    private String conteudo;
+    private String dataFinalAlteracao;
     
     /***************************************************************************************************************/
     
-    public Arquivo(String nome, String dataAlteracao, String caminho, String tamanho, int qtdeExpEcontrada){
-        this.nome = nome;
-        this.dataAlteracao = dataAlteracao;
-        this.caminho = caminho;
-        this.tamanho = tamanho;
-        this.qtdeExpEncontrada = qtdeExpEcontrada;
+    public Arquivo(String nome, String caminho, long dataAlteracao, String tamanho, int qtdeExpEncontrada, String conteudo){
+        this.setNome(nome);
+        this.setDataAlteracao(dataAlteracao);
+        this.setCaminho(caminho);
+        this.setTamanho(tamanho);
+        this.setQtdeExpEncontrada(qtdeExpEncontrada);
+        this.setConteudo(conteudo);
+    }
+    
+    /***************************************************************************************************************/
+    
+    public Arquivo(String nome, String caminho, long dataAlteracao, String tamanho){
+        this.setNome(nome);
+        this.setDataAlteracao(dataAlteracao);
+        this.setCaminho(caminho);
+        this.setTamanho(tamanho);
     }
     
     /***************************************************************************************************************/
@@ -37,14 +53,16 @@ public class Arquivo {
     
     /***************************************************************************************************************/
 
-    public String getDataAlteracao() {
+    public long getDataAlteracao() {
         return dataAlteracao;
     }
     
     /***************************************************************************************************************/
 
-    public void setDataAlteracao(String dataAlteracao) {
+    public void setDataAlteracao(long dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
+        DateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");     
+        this.setDataFinalAlteracao(formatData.format(new Date(dataAlteracao))); 
     }
     
     /***************************************************************************************************************/
@@ -81,6 +99,30 @@ public class Arquivo {
 
     public void setQtdeExpEncontrada(int qtdeExpEncontrada) {
         this.qtdeExpEncontrada = qtdeExpEncontrada;
+    }
+    
+    /***************************************************************************************************************/
+
+    public String getConteudo() {
+        return conteudo;
+    }
+    
+    /***************************************************************************************************************/
+
+    public void setConteudo(String conteudo) {
+        this.conteudo = conteudo;
+    }
+    
+    /***************************************************************************************************************/
+
+    public String getDataFinalAlteracao() {
+        return dataFinalAlteracao;
+    }
+    
+    /***************************************************************************************************************/
+
+    public void setDataFinalAlteracao(String dataFinalAlteracao) {
+        this.dataFinalAlteracao = dataFinalAlteracao;
     }
     
 
