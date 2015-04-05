@@ -76,7 +76,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         jLabel3.setText("Local da Pasta");
 
         ckbSubFolders.setSelected(true);
-        ckbSubFolders.setText("Sub Pastas");
+        ckbSubFolders.setText("Escanear Sub Pastas");
         ckbSubFolders.setToolTipText("Pesquisar dentro de sub pastas");
         ckbSubFolders.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
