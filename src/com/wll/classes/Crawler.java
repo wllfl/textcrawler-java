@@ -9,13 +9,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 
 /**
  *
  * @author william
  */
-public class Crawler {
+public class Crawler{
     
     private String caminho;
     private Boolean subPastas;
@@ -26,7 +25,7 @@ public class Crawler {
     private Arquivo arquivoTemp = null;
     private Arquivo arquivoFinal = null;
     private ArrayList<Arquivo> listaTemp = new ArrayList();
-    private ArrayList<Arquivo> listaTFinal = new ArrayList();
+    public ArrayList<Arquivo> listaTFinal = new ArrayList();
     private DefaultListModel listaFile = new DefaultListModel(); 
     
     /***************************************************************************************************************/
@@ -222,10 +221,6 @@ public class Crawler {
     public int getFTotalPastas() {
         return FTotalPastas;
     }
-
-    public void procuraExpressao(JTextField edtFind) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
-    /***************************************************************************************************************/
+
 }
