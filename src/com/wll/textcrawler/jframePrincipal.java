@@ -55,7 +55,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jlistFile = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        JTextArea = new javax.swing.JTextArea();
         jProgressBar2 = new javax.swing.JProgressBar();
         lblTotalPastas = new javax.swing.JLabel();
         lblTotalArquivos = new javax.swing.JLabel();
@@ -207,13 +207,18 @@ public class jframePrincipal extends javax.swing.JFrame {
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jlistFile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlistFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlistFileMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jlistFile);
         jlistFile.getAccessibleContext().setAccessibleParent(this);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        JTextArea.setEditable(false);
+        JTextArea.setColumns(20);
+        JTextArea.setRows(5);
+        jScrollPane2.setViewportView(JTextArea);
 
         lblTotalPastas.setText("Total de Pastas");
 
@@ -341,6 +346,14 @@ public class jframePrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jlistFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistFileMouseClicked
+        if (this.listaArquivo.size() > 0){
+            int indice = this.jlistFile.getSelectedIndex();
+            String conteudo = this.listaArquivo.get(indice-1).getConteudo();
+            JTextArea.setText(conteudo);
+        }
+    }//GEN-LAST:event_jlistFileMouseClicked
+
     /***************************************************************************************************************/
     
     public static void main(String args[]) {
@@ -376,6 +389,7 @@ public class jframePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea JTextArea;
     private javax.swing.JButton btnFindFolder;
     private javax.swing.JCheckBox ckbCaseSensitive;
     private javax.swing.JCheckBox ckbPalavraInteira;
@@ -402,7 +416,6 @@ public class jframePrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList jlistFile;
     private javax.swing.JPanel jpanelFolder;
     private javax.swing.JLabel lblTotalArquivos;

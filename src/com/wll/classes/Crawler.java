@@ -47,6 +47,7 @@ public class Crawler {
                 String linha = "";
                 String conteudo = "";
                 int contRepeticao = 0;
+                int contLinha = 1;
                 
                 while ((linha = buffer.readLine()) != null) {  
                     if(combinacaoPalavra){
@@ -54,14 +55,15 @@ public class Crawler {
                         Matcher matcher = pattern.matcher(linha);
                         if(matcher.matches()){
                             contRepeticao++;
-                            conteudo += linha + "\n";
+                            conteudo += String.format("%-10s%-60s\n",contLinha, linha + "\n");
                         }
                     }else{
                         if (linha.contains(expressao)) {  
                             contRepeticao++;
-                            conteudo += linha + "\n";
+                            conteudo += String.format("%-10s%-60s\n",contLinha, linha + "\n");
                         }  
                     }
+                    contLinha++;
                 }
                 
                 if (contRepeticao > 0){
