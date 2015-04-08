@@ -1,7 +1,10 @@
 
 package com.wll.textcrawler;
 
+import com.wll.classes.Arquivo;
 import com.wll.classes.Crawler;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -12,6 +15,8 @@ import javax.swing.JOptionPane;
 public class jframePrincipal extends javax.swing.JFrame {
 
     private Crawler crawler;  
+    private ArrayList<Arquivo> listaArquivo = null;
+    DefaultListModel model = new DefaultListModel(); 
     
     /***************************************************************************************************************/
 
@@ -59,7 +64,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Ferramenta TextCrawler");
+        setTitle("Ferramenta JTextCrawler");
 
         jpanelFolder.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -298,6 +303,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         if(!"".equals(edtLocalPasta.getText())){              
             lblTotalPastas.setVisible(true);
             lblTotalArquivos.setVisible(true);
+            this.model.removeAllElements();
             
             String extAceita = (edtExtAceita.getText().equals("")) ? "*.*" : edtExtAceita.getText();
             String extRejeitada = (edtExtRejeitada.getText().equals("")) ? "*.*" : edtExtRejeitada.getText() ;
@@ -307,7 +313,19 @@ public class jframePrincipal extends javax.swing.JFrame {
 
             lblTotalPastas.setText("Total de Pastas -> " + String.valueOf(this.crawler.getFTotalPastas()));
             lblTotalArquivos.setText("Total de Arquivos -> " + String.valueOf(this.crawler.getFTotalArquivos()));
-            crawler.procuraExpressao(edtFind.getText());
+            this.listaArquivo = crawler.procuraExpressao(edtFind.getText());
+            
+            if(this.listaArquivo.size() > 0){
+                String cabecalho = String.format("%-30s%-60s%-20s\n","Nome do Arquivo","Caminho", "Data de Alteração");
+                model.addElement(cabecalho);
+                for (Arquivo arquivo : listaArquivo) { 
+                    String dados = String.format("%-30s%-70s%-20s\n",arquivo.getNome(), arquivo.getCaminho(), arquivo.getDataFinalAlteracao() + "\n");
+                    model.addElement(dados);
+                }
+                jlistFile.setModel(this.model);
+            }else{
+                JOptionPane.showMessageDialog(this, "Não foi encontrado nenhuma combinação!");
+            }
         }else{
             lblTotalPastas.setVisible(false);
             lblTotalArquivos.setVisible(false);

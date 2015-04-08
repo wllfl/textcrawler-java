@@ -39,7 +39,7 @@ public class Crawler {
     
     /***************************************************************************************************************/
     
-    public void procuraExpressao(String expressao){
+    public ArrayList<Arquivo> procuraExpressao(String expressao){
         try{
             for (Arquivo arquivo : listaTemp) {
                 BufferedReader buffer = new BufferedReader(new FileReader(arquivo.getCaminho()));
@@ -65,9 +65,11 @@ public class Crawler {
                 }
             }
             
-            String teste = "";
+            return this.listaTFinal;
+            
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao procurar expressão: " + ex.getMessage());
+            return this.listaTFinal;
         }
     }
     
@@ -136,7 +138,7 @@ public class Crawler {
 
                       //Compara pela extensão do arquivo
                 }else if(arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
-                    retorno = arrayFile[1].equals(arrayFilter[1]);
+                    retorno = (arrayFile.length > 1) ? arrayFile[1].equals(arrayFilter[1]) : false;
 
                       // Compara por nome e extensão do arquivo
                 }else if(!arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
