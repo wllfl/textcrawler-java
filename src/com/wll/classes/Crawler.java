@@ -142,7 +142,8 @@ public class Crawler {
 
                       // Compara por nome e extensão do arquivo
                 }else if(!arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
-                    retorno = (arrayFile[0].equals(arrayFilter[0]) && arrayFile[1].equals(arrayFilter[1]));
+                    retorno = (arrayFile[0].equals(arrayFilter[0]) && 
+                               (arrayFile.length > 1) ? arrayFile[1].equals(arrayFilter[1]) : false);
                 }
             }
             
@@ -171,11 +172,12 @@ public class Crawler {
 
                       //Compara pela extensão do arquivo
                 }else if(arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
-                    retorno = arrayFile[1].equals(arrayFilter[1]);
+                    retorno = (arrayFile.length > 1) ? arrayFile[1].equals(arrayFilter[1]) : false;
 
                       // Compara por nome e extensão do arquivo
                 }else if(!arrayFilter[0].equals("*") && !arrayFilter[1].equals("*")){
-                    retorno = (arrayFile[0].equals(arrayFilter[0]) && arrayFile[1].equals(arrayFilter[1]));
+                    retorno = (arrayFile[0].equals(arrayFilter[0]) && 
+                               (arrayFile.length > 1) ? arrayFile[1].equals(arrayFilter[1]) : false);
                 }
             }
             

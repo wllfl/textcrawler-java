@@ -49,6 +49,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         edtFind = new javax.swing.JTextField();
         edtReplace = new javax.swing.JTextField();
         ckbCaseSensitive = new javax.swing.JCheckBox();
+        ckbPalavraInteira = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -150,6 +151,10 @@ public class jframePrincipal extends javax.swing.JFrame {
         ckbCaseSensitive.setToolTipText("Pesquisa deferenciando letras Maiúsculas de Minúsculas");
         ckbCaseSensitive.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        ckbPalavraInteira.setText("Palavra inteira");
+        ckbPalavraInteira.setToolTipText("Pesquisa somente por combinação em palavras");
+        ckbPalavraInteira.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -163,10 +168,12 @@ public class jframePrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(edtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(ckbCaseSensitive))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ckbCaseSensitive)
+                        .addGap(18, 18, 18)
+                        .addComponent(ckbPalavraInteira))
                     .addComponent(edtReplace, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +182,8 @@ public class jframePrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(ckbCaseSensitive))
+                    .addComponent(ckbCaseSensitive)
+                    .addComponent(ckbPalavraInteira))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtReplace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,7 +245,7 @@ public class jframePrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTabbedPane1)
-                    .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane2)
                     .addComponent(jScrollPane2)
                     .addComponent(jProgressBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
@@ -370,6 +378,7 @@ public class jframePrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFindFolder;
     private javax.swing.JCheckBox ckbCaseSensitive;
+    private javax.swing.JCheckBox ckbPalavraInteira;
     private javax.swing.JCheckBox ckbSubFolders;
     private javax.swing.JTextField edtExtAceita;
     private javax.swing.JTextField edtExtRejeitada;
