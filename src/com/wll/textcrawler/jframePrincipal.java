@@ -321,7 +321,7 @@ public class jframePrincipal extends javax.swing.JFrame {
 
             lblTotalPastas.setText("Total de Pastas -> " + String.valueOf(this.crawler.getFTotalPastas()));
             lblTotalArquivos.setText("Total de Arquivos -> " + String.valueOf(this.crawler.getFTotalArquivos()));
-            this.listaArquivo = crawler.procuraExpressao(edtFind.getText());
+            this.listaArquivo = crawler.procuraExpressao(edtFind.getText(), ckbPalavraInteira.isSelected());
             
             if(this.listaArquivo.size() > 0){
                 String cabecalho = String.format("%-30s%-60s%-20s\n","Nome do Arquivo","Caminho", "Data de Alteração");

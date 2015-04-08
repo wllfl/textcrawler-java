@@ -1,11 +1,12 @@
 
 package com.wll.classes;
 
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -39,7 +40,7 @@ public class Crawler {
     
     /***************************************************************************************************************/
     
-    public ArrayList<Arquivo> procuraExpressao(String expressao){
+    public ArrayList<Arquivo> procuraExpressao(String expressao, Boolean combinacaoPalavra){
         try{
             for (Arquivo arquivo : listaTemp) {
                 BufferedReader buffer = new BufferedReader(new FileReader(arquivo.getCaminho()));
@@ -48,10 +49,19 @@ public class Crawler {
                 int contRepeticao = 0;
                 
                 while ((linha = buffer.readLine()) != null) {  
-                    if (linha.contains(expressao)) {  
-                        contRepeticao++;
-                        conteudo += linha + "\n";
-                    }  
+                    if(combinacaoPalavra){
+                        Pattern pattern = Pattern.compile(".* "+expressao+" .*");
+                        Matcher matcher = pattern.matcher(linha);
+                        if(matcher.matches()){
+                            contRepeticao++;
+                            conteudo += linha + "\n";
+                        }
+                    }else{
+                        if (linha.contains(expressao)) {  
+                            contRepeticao++;
+                            conteudo += linha + "\n";
+                        }  
+                    }
                 }
                 
                 if (contRepeticao > 0){
