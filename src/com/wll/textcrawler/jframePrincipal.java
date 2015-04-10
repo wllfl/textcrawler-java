@@ -334,7 +334,7 @@ public class jframePrincipal extends javax.swing.JFrame {
             lblTotalPastas.setVisible(true);
             lblTotalArquivos.setVisible(true);
             this.model.removeAllElements();
-            this.limpaLista();
+            this.limpaCampos();
             Log.gravarLog("LogLocalPasta", JComboLocalPasta.getSelectedItem().toString());
             Log.gravarLog("LogFind", jComboFind.getSelectedItem().toString());
             
@@ -393,16 +393,19 @@ public class jframePrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jlistFileValueChanged
 
-    private void limpaLista(){
+    private void limpaCampos(){
         if(this.listaArquivo != null && this.listaArquivo.size() > 0){
             this.listaArquivo.clear();
         }
+        JTextArea.setText("");
     }
     
     private void alteraConteudo(){
         int indice = this.jlistFile.getSelectedIndex();
-        String conteudo = this.listaArquivo.get(indice-1).getConteudo();
-        JTextArea.setText(conteudo);
+        if(indice > 0){
+            String conteudo = this.listaArquivo.get(indice-1).getConteudo();
+            JTextArea.setText(conteudo);
+        }
     }
     
     /***************************************************************************************************************/
