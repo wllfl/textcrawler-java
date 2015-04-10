@@ -4,6 +4,7 @@ package com.wll.textcrawler;
 import com.wll.classes.Arquivo;
 import com.wll.classes.Crawler;
 import com.wll.classes.Log;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -98,7 +99,9 @@ public class jframePrincipal extends javax.swing.JFrame {
             }
         });
 
+        JComboLocalPasta.setBackground(new java.awt.Color(255, 153, 153));
         JComboLocalPasta.setEditable(true);
+        JComboLocalPasta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jpanelFolderLayout = new javax.swing.GroupLayout(jpanelFolder);
         jpanelFolder.setLayout(jpanelFolderLayout);
@@ -161,6 +164,7 @@ public class jframePrincipal extends javax.swing.JFrame {
         ckbPalavraInteira.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jComboFind.setEditable(true);
+        jComboFind.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -326,7 +330,7 @@ public class jframePrincipal extends javax.swing.JFrame {
     /***************************************************************************************************************/
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(!"".equals(JComboLocalPasta.getSelectedItem().toString())){              
+        if(this.validaCampos()){              
             lblTotalPastas.setVisible(true);
             lblTotalArquivos.setVisible(true);
             this.model.removeAllElements();
@@ -358,13 +362,25 @@ public class jframePrincipal extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(this, "Não foi encontrado nenhuma combinação!");
             }
-        }else{
-            lblTotalPastas.setVisible(false);
-            lblTotalArquivos.setVisible(false);
-            JOptionPane.showMessageDialog(this, "Infome o local da pasta para pesquisa!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private Boolean validaCampos(){
+        if ("".equals(JComboLocalPasta.getSelectedItem().toString())){
+            JOptionPane.showMessageDialog(this, "Infome o local da pasta para pesquisa!");
+            JComboLocalPasta.requestFocus();
+            return false;
+        }else{
+            if ("".equals(jComboFind.getSelectedItem().toString())){
+                JOptionPane.showMessageDialog(this, "Infome o texto de pesquisa!");
+                jComboFind.requestFocus();
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }
+    
     private void jlistFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistFileMouseClicked
         if (this.listaArquivo.size() > 0){
             this.alteraConteudo();
