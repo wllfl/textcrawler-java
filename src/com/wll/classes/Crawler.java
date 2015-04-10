@@ -20,6 +20,8 @@ public class Crawler{
     private Boolean subPastas;
     private String extAceita;
     private String extRejeitada;
+    private String expressao;
+    private Boolean combinacaoPalavra;
     private int FTotalArquivos = 0;
     private int FTotalPastas = 0;
     private Arquivo arquivoTemp = null;
@@ -39,7 +41,7 @@ public class Crawler{
     
     /***************************************************************************************************************/
     
-    public ArrayList<Arquivo> procuraExpressao(String expressao, Boolean combinacaoPalavra){
+    public ArrayList<Arquivo> procuraExpressao(){
         try{
             for (Arquivo arquivo : listaTemp) {
                 BufferedReader buffer = new BufferedReader(new FileReader(arquivo.getCaminho()));
@@ -49,15 +51,15 @@ public class Crawler{
                 int contLinha = 1;
                 
                 while ((linha = buffer.readLine()) != null) {  
-                    if(combinacaoPalavra){
-                        Pattern pattern = Pattern.compile(".* "+expressao+" .*");
+                    if(this.combinacaoPalavra){
+                        Pattern pattern = Pattern.compile(".* "+this.expressao+" .*");
                         Matcher matcher = pattern.matcher(linha);
                         if(matcher.matches()){
                             contRepeticao++;
                             conteudo += String.format("%-10s%-60s\n",contLinha, linha + "\n");
                         }
                     }else{
-                        if (linha.contains(expressao)) {  
+                        if (linha.contains(this.expressao)) {  
                             contRepeticao++;
                             conteudo += String.format("%-10s%-60s\n",contLinha, linha + "\n");
                         }  
@@ -222,5 +224,27 @@ public class Crawler{
         return FTotalPastas;
     }
     
+    /***************************************************************************************************************/
 
+    public String getExpressao() {
+        return expressao;
+    }
+    
+    /***************************************************************************************************************/
+
+    public void setExpressao(String expressao) {
+        this.expressao = expressao;
+    }
+    
+    /***************************************************************************************************************/
+
+    public Boolean getCombinacaoPalavra() {
+        return combinacaoPalavra;
+    }
+    
+    /***************************************************************************************************************/
+
+    public void setCombinacaoPalavra(Boolean combinacaoPalavra) {
+        this.combinacaoPalavra = combinacaoPalavra;
+    }
 }

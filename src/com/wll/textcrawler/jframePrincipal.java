@@ -3,6 +3,7 @@ package com.wll.textcrawler;
 
 import com.wll.classes.Arquivo;
 import com.wll.classes.Crawler;
+import com.wll.classes.Log;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -24,6 +25,10 @@ public class jframePrincipal extends javax.swing.JFrame {
         initComponents();
         lblTotalArquivos.setVisible(false);
         lblTotalPastas.setVisible(false);
+        JComboLocalPasta.addItem("");
+        jComboFind.addItem("");
+        Log.lerLog("LogLocalPasta", JComboLocalPasta);
+        Log.lerLog("LogFind", jComboFind);
     }
     
      /***************************************************************************************************************/
@@ -38,18 +43,18 @@ public class jframePrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         edtExtAceita = new javax.swing.JTextField();
         edtExtRejeitada = new javax.swing.JTextField();
-        edtLocalPasta = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         ckbSubFolders = new javax.swing.JCheckBox();
         btnFindFolder = new javax.swing.JButton();
+        JComboLocalPasta = new javax.swing.JComboBox();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        edtFind = new javax.swing.JTextField();
         edtReplace = new javax.swing.JTextField();
         ckbCaseSensitive = new javax.swing.JCheckBox();
         ckbPalavraInteira = new javax.swing.JCheckBox();
+        jComboFind = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -77,8 +82,6 @@ public class jframePrincipal extends javax.swing.JFrame {
 
         edtExtRejeitada.setText("*.*");
 
-        edtLocalPasta.setEditable(false);
-
         jLabel3.setText("Local da Pasta");
 
         ckbSubFolders.setSelected(true);
@@ -95,6 +98,8 @@ public class jframePrincipal extends javax.swing.JFrame {
             }
         });
 
+        JComboLocalPasta.setEditable(true);
+
         javax.swing.GroupLayout jpanelFolderLayout = new javax.swing.GroupLayout(jpanelFolder);
         jpanelFolder.setLayout(jpanelFolderLayout);
         jpanelFolderLayout.setHorizontalGroup(
@@ -108,7 +113,7 @@ public class jframePrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpanelFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpanelFolderLayout.createSequentialGroup()
-                        .addComponent(edtLocalPasta, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JComboLocalPasta, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnFindFolder))
                     .addGroup(jpanelFolderLayout.createSequentialGroup()
@@ -117,16 +122,16 @@ public class jframePrincipal extends javax.swing.JFrame {
                             .addComponent(edtExtRejeitada, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addComponent(ckbSubFolders)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jpanelFolderLayout.setVerticalGroup(
             jpanelFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpanelFolderLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jpanelFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtLocalPasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(btnFindFolder))
+                    .addComponent(btnFindFolder)
+                    .addComponent(JComboLocalPasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jpanelFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtExtAceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,6 +160,8 @@ public class jframePrincipal extends javax.swing.JFrame {
         ckbPalavraInteira.setToolTipText("Pesquisa somente por combinação em palavras");
         ckbPalavraInteira.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        jComboFind.setEditable(true);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -165,14 +172,13 @@ public class jframePrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(edtFind, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ckbCaseSensitive)
-                        .addGap(18, 18, 18)
-                        .addComponent(ckbPalavraInteira))
-                    .addComponent(edtReplace, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(edtReplace, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addComponent(jComboFind, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addComponent(ckbCaseSensitive)
+                .addGap(18, 18, 18)
+                .addComponent(ckbPalavraInteira)
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -180,10 +186,10 @@ public class jframePrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(edtFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
                     .addComponent(ckbCaseSensitive)
-                    .addComponent(ckbPalavraInteira))
+                    .addComponent(ckbPalavraInteira)
+                    .addComponent(jComboFind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(edtReplace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,29 +316,36 @@ public class jframePrincipal extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         int result = fileChooser.showOpenDialog(this);
-        if(result == JFileChooser.APPROVE_OPTION){  
-            edtLocalPasta.setText(fileChooser.getSelectedFile().getPath()); 
+        if(result == JFileChooser.APPROVE_OPTION){ 
+            JComboLocalPasta.removeAllItems();
+            JComboLocalPasta.addItem(fileChooser.getSelectedFile().getPath()); 
+            Log.lerLog("LogLocalPasta", JComboLocalPasta);
         } 
     }//GEN-LAST:event_btnFindFolderActionPerformed
 
     /***************************************************************************************************************/
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(!"".equals(edtLocalPasta.getText())){              
+        if(!"".equals(JComboLocalPasta.getSelectedItem().toString())){              
             lblTotalPastas.setVisible(true);
             lblTotalArquivos.setVisible(true);
             this.model.removeAllElements();
+            this.limpaLista();
+            Log.gravarLog("LogLocalPasta", JComboLocalPasta.getSelectedItem().toString());
+            Log.gravarLog("LogFind", jComboFind.getSelectedItem().toString());
             
             String extAceita = (edtExtAceita.getText().equals("")) ? "*.*" : edtExtAceita.getText();
             String extRejeitada = (edtExtRejeitada.getText().equals("")) ? "*.*" : edtExtRejeitada.getText() ;
-            crawler = new Crawler(edtLocalPasta.getText(), ckbSubFolders.isSelected(), extAceita, extRejeitada);
-            crawler.contaArquivos(edtLocalPasta.getText());
-            crawler.contaPastas(edtLocalPasta.getText());
+            crawler = new Crawler(JComboLocalPasta.getSelectedItem().toString(), ckbSubFolders.isSelected(), extAceita, extRejeitada);
+            crawler.contaArquivos(JComboLocalPasta.getSelectedItem().toString());
+            crawler.contaPastas(JComboLocalPasta.getSelectedItem().toString());
+            crawler.setExpressao(jComboFind.getSelectedItem().toString());
+            crawler.setCombinacaoPalavra(ckbPalavraInteira.isSelected());
 
             JProgress.setMaximum(this.crawler.getFTotalArquivos());
             lblTotalPastas.setText("Total de Pastas -> " + String.valueOf(this.crawler.getFTotalPastas()));
             lblTotalArquivos.setText("Total de Arquivos -> " + String.valueOf(this.crawler.getFTotalArquivos()));
-            this.listaArquivo = crawler.procuraExpressao(edtFind.getText(), ckbPalavraInteira.isSelected());
+            this.listaArquivo = crawler.procuraExpressao();
             
             if(this.listaArquivo.size() > 0){
                 String cabecalho = String.format("%-30s%-60s%-20s\n","Nome do Arquivo","Caminho", "Data de Alteração");
@@ -364,6 +377,12 @@ public class jframePrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jlistFileValueChanged
 
+    private void limpaLista(){
+        if(this.listaArquivo != null && this.listaArquivo.size() > 0){
+            this.listaArquivo.clear();
+        }
+    }
+    
     private void alteraConteudo(){
         int indice = this.jlistFile.getSelectedIndex();
         String conteudo = this.listaArquivo.get(indice-1).getConteudo();
@@ -405,6 +424,7 @@ public class jframePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox JComboLocalPasta;
     private javax.swing.JProgressBar JProgress;
     private javax.swing.JTextArea JTextArea;
     private javax.swing.JButton btnFindFolder;
@@ -413,11 +433,10 @@ public class jframePrincipal extends javax.swing.JFrame {
     private javax.swing.JCheckBox ckbSubFolders;
     private javax.swing.JTextField edtExtAceita;
     private javax.swing.JTextField edtExtRejeitada;
-    private javax.swing.JTextField edtFind;
-    private javax.swing.JTextField edtLocalPasta;
     private javax.swing.JTextField edtReplace;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox jComboFind;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

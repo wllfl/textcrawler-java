@@ -144,7 +144,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="edtLocalPasta" min="-2" pref="684" max="-2" attributes="0"/>
+                              <Component id="JComboLocalPasta" min="-2" pref="684" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnFindFolder" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -157,7 +157,7 @@
                               <Component id="ckbSubFolders" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="66" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -166,9 +166,9 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="edtLocalPasta" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnFindFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="JComboLocalPasta" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -207,11 +207,6 @@
                 <Property name="text" type="java.lang.String" value="*.*"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="edtLocalPasta">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Local da Pasta"/>
@@ -238,6 +233,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFindFolderActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="JComboLocalPasta">
+              <Properties>
+                <Property name="editable" type="boolean" value="true"/>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -273,16 +276,14 @@
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="edtFind" min="-2" pref="455" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="ckbCaseSensitive" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="ckbPalavraInteira" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="edtReplace" min="-2" pref="455" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="edtReplace" pref="455" max="32767" attributes="0"/>
+                          <Component id="jComboFind" max="32767" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="ckbCaseSensitive" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="ckbPalavraInteira" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="35" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -292,10 +293,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="16" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="edtFind" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ckbCaseSensitive" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ckbPalavraInteira" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboFind" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -318,8 +319,6 @@
                 <Property name="text" type="java.lang.String" value="Substituir por"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="edtFind">
-            </Component>
             <Component class="javax.swing.JTextField" name="edtReplace">
             </Component>
             <Component class="javax.swing.JCheckBox" name="ckbCaseSensitive">
@@ -337,6 +336,14 @@
                 <Property name="toolTipText" type="java.lang.String" value="Pesquisa somente por combina&#xe7;&#xe3;o em palavras"/>
                 <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
                   <Color id="Cursor em Forma de M&#xe3;o"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JComboBox" name="jComboFind">
+              <Properties>
+                <Property name="editable" type="boolean" value="true"/>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
             </Component>
